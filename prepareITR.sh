@@ -71,7 +71,7 @@ cd ..
 envsubst < /data/ITR-Docker/data/nginx/app.conf.template > /data/ITR-Docker/data/nginx/app.conf
 envsubst < /data/ITR-API/instance/application.cfg.template > /data/ITR-data/instance/application.cfg
 envsubst < /data/ITR-Docker/init-letsencrypt.sh.template > /data/ITR-Docker/init-letsencrypt.sh
-if find "/data/ITR-data/translations/" -mindepth 1 -print -quit 2>/dev/null | grep -q .; then
+if [ ! "$(ls -A /data/ITR-data/instance/translations)" ]; then 
     echo "Initialising translations folder"
     cp /data/ITR-API/instance/translations/*.json /data/ITR-data/instance/translations/. 
 fi
@@ -79,14 +79,14 @@ fi
 # Retrieve a certificate for this site
 chmod +x /data/ITR-Docker/init-letsencrypt.sh
 cd /data/ITR-Docker
-./data/ITR-Docker/init-letsencrypt.sh
+./init-letsencrypt.sh
 
 # prepare for docker start
 cd /data/ITR-Docker
 echo PG_PASSWORD=${PG_PASSWORD} > .env
-echo WWW=${WWW} > .env
-echo EMAIL=${EMAIL} > .env
-echo DBPREFIX=${DBPREFIX} > .env
+echo WWW=${WWW} >> .env
+echo EMAIL=${EMAIL} >> .env
+echo DBPREFIX=${DBPREFIX} >> .env
 
 # build whatever containers are necessary 
 chmod +x build.sh
