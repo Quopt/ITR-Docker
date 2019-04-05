@@ -1,8 +1,8 @@
 version: "3"
 services: 
  itr-nginx:
-  image: itr-nginx`
-  container_name: itr-nginx 
+  image: itr-nginx-container
+  container_name: itr-nginx
   volumes:
    - /data/ITR-data/nginx/certificates:/etc/nginx/ssl:z
    - /data/ITR-webclient/:/usr/share/nginx/html:z
@@ -18,7 +18,7 @@ services:
    - itr-postgresql
 
  itr-api:
-  image: itr-internal-api
+  image: itr-internal-api-container
   container_name: itr-api
   volumes:
    - /data/ITR-API:/etc/ITR/API:z
@@ -36,7 +36,7 @@ services:
    - itr-network
 
  itr-public-api:
-  image: itr-external-api
+  image: itr-external-api-container
   container_name: itr-public-api
   volumes:
    - /data/ITR-API:/etc/ITR/API:z
@@ -54,7 +54,7 @@ services:
    - itr-network
 
  itr-postgresql:
-  image: itr-postgresql
+  image: itr-postgres-container
   container_name: itr-postgresql
   volumes:
    - /data/ITR-data/database/data:/var/lib/postgresql/data:z
