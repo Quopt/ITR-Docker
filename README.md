@@ -1,4 +1,4 @@
 # ITR-Docker
 ITR docker support files
 
-Do not use this repo yet. 
+Please see the wiki http://wiki.itr365.com/index.php?title=Install_on_linux for usage instructions.
