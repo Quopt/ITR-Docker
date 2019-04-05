@@ -104,4 +104,4 @@ chmod +x build.sh
 # itr-certbot - check for the renew of the server certificates every 12 hours
 # itr-postgresql - the database for the ITR
 sudo apt install -y docker-compose
-sudo docker-compose -f ITRStack.yml up -d
+sudo docker-compose -f ITRStack.yml up -d --force-recreate
