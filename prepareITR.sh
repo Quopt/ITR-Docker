@@ -42,6 +42,7 @@ mkdir ITR-data/instance/log | true
 mkdir ITR-data/instance/translations | true
 mkdir ITR-data/instance/cache | true
 mkdir ITR-data/database | true
+mkdir -p ITR-data/nginx/certificates | true
 # get the latest source code from github
 git clone https://github.com/Quopt/ITR-webclient.git
 git clone https://github.com/Quopt/ITR-public-API.git

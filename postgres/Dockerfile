@@ -1,3 +1,3 @@
-FROM postgres:10.5-alpine
+FROM postgres:10-alpine
 LABEL server="Postgresql"
 

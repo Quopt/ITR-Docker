@@ -1,0 +1,51 @@
+version: "3"
+services: 
+ itr-nginx:
+  image: itr-nginx-container
+  container-name: itr-nginx 
+  volumes:
+   - /data/ITR-data/nginx/certificates:/etc/nginx/ssl:z
+   - /data/ITR-webclient/:/usr/share/nginx/html/ITR-webclient:z
+  ports: 
+   - 80:80
+   - 443:443
+  restart: always
+  networks: 
+   - itr-network
+  depends_on:
+   - itr-api
+   - itr-public-api
+   - itr-postgresql
+
+ itr-api:
+  image: itr-internal-api-container
+  container-name: itr-api
+  volumes:
+   - /data/ITR-API:/etc/ITR/API:z
+   - /data/ITR-public-API:/etc/ITR/Public-API:z
+  restart: always
+  networks:
+   - itr-network
+
+ itr-public-api:
+  image: itr-external-api-container
+  container-name: itr-public-api
+  volumes:
+   - /data/ITR-API:/etc/ITR/API:z
+   - /data/ITR-public-API:/etc/ITR/Public-API:z
+  restart: always
+  networks:
+   - itr-network
+
+ itr-postgresql:
+  image: itr-postgres-container
+  container-name: itr-postgresql
+  volumes:
+   - /data/ITR-data/database/data:/var/lib/postgresql/data:z
+   - /data/ITR-data/database/backup:/backup:z  
+  environment:
+   - PG_PASSWORD=${PG_PASSWORD}     
+  restart: always
+  networks:
+   - itr-network
+
