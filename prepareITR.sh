@@ -99,4 +99,5 @@ chmod +x build.sh
 # itr-public-api - the external api for other users
 # itr-certbot - check for the renew of the server certificates every 12 hours
 # itr-postgresql - the database for the ITR
-
+sudo apt install -y docker-compose
+sudo docker-compose -f ITRStack.yml up -d
