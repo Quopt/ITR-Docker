@@ -8,8 +8,10 @@ date
 cd /usr/local/bin
 
 # create folders if they do not exist, otherwise the check for postgresql.conf might fail
-if [ ! -d /var/lib/postgresql/data ]; then
-  mkdir /var/lib/postgresql/data
+if [ ! -d /var/lib/postgresql/data/data ]; then
+  mkdir -p /var/lib/postgresql/data
+  mkdir -p /var/lib/postgresql/data/data
+  chown postgres /var/lib/postgresql/data/data
 fi
 if [ ! -d /var/lib/postgresql/backup ]; then
   mkdir /var/lib/postgresql/backup
@@ -20,12 +22,12 @@ chmod -R 777 /var/lib/postgresql/backup || true
 # create the postgresql.conf file with the proper configuration for internal network usage
 if [ ! -f /var/lib/postgresql/data/postgresql.conf ]; then
   echo Creating database and connection permission files ...
-  if [ -z "$PG_PASSWORD" ]; then 
+  if [ -z "$PG_PASSWORD" ]; then
     echo PG$(date -I) > /tmp/password
     export pwd=$(echo PG$(date -I))
-    echo Created password for user postgres = 
+    echo Created password for user postgres =
     cat /tmp/password
-  else 
+  else
     export pwd=$PG_PASSWORD
     echo $PG_PASSWORD > /tmp/password
   fi
@@ -52,9 +54,9 @@ if [ ! -f /var/lib/postgresql/data/postgresql.conf ]; then
   cp /tmp/postgresql.conf /var/lib/postgresql/data/data/postgresql.conf
   chmod 777 /var/lib/postgresql/data/data/postgresql.conf
   su -c "sleep 120; /usr/local/bin/psql -U postgres --command \"CREATE EXTENSION pg_cron;\" " postgres &
-  
+
   rm /tmp/password
-fi 
+fi
 
 # check for scheduled jobs
 export cron_check=$(grep daily-backup /etc/crontabs/root)
@@ -66,8 +68,7 @@ if [ -z $cron_check ]; then
 fi
 
 # start cron for maintenance tasks. Please note that if cron crashes (unlikely) that it will not automatically be restarted
-crond & 
+crond &
 
 # start postgres as main docker process. If postgres crashes the container will automatically restart
 su -c "./postgres -D /var/lib/postgresql/data/data" postgres
-
