@@ -64,6 +64,8 @@ services:
    - /data/ITR-data/database:/var/lib/postgresql/data:z
    - /data/ITR-data/database/backup:/backup:z  
   restart: always
+  environment:
+   - PG_PASSWORD=${PG_PASSWORD}  
   networks:
    - itr-network
 
