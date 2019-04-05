@@ -28,8 +28,8 @@ sudo apt-get update  && sudo apt-get install -y docker-ce docker-ce-cli containe
 sudo docker run hello-world
 
 cd /
-mkdir data | true
-chmod 777 data | true
+sudo mkdir data | true
+sudo chmod 777 data | true
 cd /data
 # the following folder will hold all state information for the ITR 
 # in case of multiple servers this setup needs to be reconsidered
