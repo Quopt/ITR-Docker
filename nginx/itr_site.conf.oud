@@ -10,7 +10,7 @@ server {
 #        ssl_certificate_key  /etc/nginx/ssl/certificate.key;
         
         root /usr/share/nginx/html/ITR-webclient;
-	index default.htm;
+
         server_name localhost;
 
 	location /api/ {
@@ -30,8 +30,10 @@ server {
 	        proxy_set_header X-Forwarded-Proto $scheme;
 	}
 
-#        location / {
-#                try_files $uri $uri_lowercase /default.htm =404;
-#        }
+        location / {
+		index default.htm;
+		autoindex on;
+                try_files $uri $uri_lowercase $uri/default.htm =404;
+        }
 
 }
