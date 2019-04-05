@@ -1,8 +1,5 @@
 FROM postgres:10-alpine
 
-FROM postgres:10.5-alpine
-LABEL server="Postgresql"
-
 #install pg_cron into the container
 ENV PG_CRON_VERSION=1.0.2
 RUN apk update && apk add --no-cache --virtual .build-deps build-base ca-certificates openssl tar \
