@@ -53,6 +53,7 @@ cd ITR-webclient
 git fetch --all
 git reset --hard origin/master
 cd ..
+sudo chmod -R 777 ITR-webclient/
 cd ITR-public-API
 git fetch --all
 git reset --hard origin/master
