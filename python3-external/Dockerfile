@@ -18,6 +18,9 @@ RUN apt-get update && \
 	
 ENV PATH="/opt/geckodriver:${PATH}"
 
-COPY startMe.sh .
+WORKDIR /etc/ITR 
 
-ENTRYPOINT ["bash","-c","startMe.sh"]
+COPY startMe.sh .
+RUN chmod 777 startMe.sh && chmod +X startMe.sh
+
+ENTRYPOINT ["bash","-c","/etc/ITR/startMe.sh"]
