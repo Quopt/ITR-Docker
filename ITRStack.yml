@@ -1,16 +1,16 @@
 version: "3"
-services: 
+services:
  itr-nginx:
   image: itr-nginx-container
   container_name: itr-nginx
   volumes:
    - /data/ITR-data/nginx/certificates:/etc/nginx/ssl:z
    - /data/ITR-webclient/:/usr/share/nginx/html:z
-  ports: 
+  ports:
    - 80:80
    - 443:443
   restart: always
-  networks: 
+  networks:
    - itr-network
   depends_on:
    - itr-api
@@ -23,7 +23,7 @@ services:
   volumes:
    - /data/ITR-API:/etc/ITR/API:z
    - /data/ITR-public-API:/etc/ITR/Public-API:z
-   - /data/ITR-API/instance/application.cfg:/data/ITR-data/instance/application.cfg:z
+   - /data/ITR-data/instance/application.cfg:/etc/ITR/API/instance/application.cfg:z
    - /data/ITR-API/instance/log:/data/ITR-data/instance/log/internal:z
    - /data/ITR-API/instance/translations:/data/ITR-data/instance/translations:z
    - /data/ITR-API/instance/media:/data/ITR-data/instance/media:z
@@ -35,7 +35,7 @@ services:
   networks:
    - itr-network
   depends_on:
-   - itr-postgresql   
+   - itr-postgresql
 
  itr-public-api:
   image: itr-external-api-container
@@ -43,7 +43,7 @@ services:
   volumes:
    - /data/ITR-API:/etc/ITR/API:z
    - /data/ITR-public-API:/etc/ITR/Public-API:z
-   - /data/ITR-API/instance/application.cfg:/data/ITR-data/instance/application.cfg:z
+   - /data/ITR-data/instance/application.cfg:/etc/ITR/API/instance/application.cfg:z
    - /data/ITR-API/instance/log:/data/ITR-data/instance/log/external:z
    - /data/ITR-API/instance/translations:/data/ITR-data/instance/translations:z
    - /data/ITR-API/instance/media:/data/ITR-data/instance/media:z
@@ -55,17 +55,17 @@ services:
   networks:
    - itr-network
   depends_on:
-   - itr-postgresql   
+   - itr-postgresql
 
  itr-postgresql:
   image: itr-postgres-container
   container_name: itr-postgresql
   volumes:
-   - /data/ITR-data/database:/var/lib/postgresql/data:z
-   - /data/ITR-data/database/backup:/backup:z  
+   - /data/ITR-data/database/data:/var/lib/postgresql/data:z
+   - /data/ITR-data/database/backup:/backup:z
   restart: always
   environment:
-   - PG_PASSWORD=${PG_PASSWORD}  
+   - PG_PASSWORD=${PG_PASSWORD}
   networks:
    - itr-network
 
