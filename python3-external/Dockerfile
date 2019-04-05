@@ -12,8 +12,12 @@ RUN apt-get update && \
     wget https://github.com/mozilla/geckodriver/releases/download/v0.21.0/geckodriver-v0.21.0-linux64.tar.gz && \
     tar -xvzf geckodriver* && \
     chmod +x geckodriver && \
-    export PATH=$PATH:/opt/geckodriver 
+    export PATH=$PATH:/opt/geckodriver && \
+    pip3 install --upgrade pip && \
+    apt-get install -y unixodbc unixodbc-dev
 	
 ENV PATH="/opt/geckodriver:${PATH}"
 
+COPY startMe.sh .
 
+ENTRYPOINT ["bash","-c","startMe.sh"]
