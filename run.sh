@@ -1,1 +1,1 @@
-docker-compose -f ITRStack.yml up -d
+sudo docker-compose -f ITRStack.yml up -d
