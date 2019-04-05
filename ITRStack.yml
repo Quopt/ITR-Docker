@@ -23,6 +23,14 @@ services:
   volumes:
    - /data/ITR-API:/etc/ITR/API:z
    - /data/ITR-public-API:/etc/ITR/Public-API:z
+   - /data/ITR-API/instance/application.cfg:/data/ITR-data/instance/application.cfg:z
+   - /data/ITR-API/instance/log:/data/ITR-data/instance/log/internal:z
+   - /data/ITR-API/instance/translations:/data/ITR-data/instance/translations:z
+   - /data/ITR-API/instance/media:/data/ITR-data/instance/media:z
+   - /data/ITR-API/instance/cache:/data/ITR-data/instance/cache:z
+  environment:
+   - ITRPORT=80
+   - ITRTHREADS=75
   restart: always
   networks:
    - itr-network
@@ -33,6 +41,14 @@ services:
   volumes:
    - /data/ITR-API:/etc/ITR/API:z
    - /data/ITR-public-API:/etc/ITR/Public-API:z
+   - /data/ITR-API/instance/application.cfg:/data/ITR-data/instance/application.cfg:z
+   - /data/ITR-API/instance/log:/data/ITR-data/instance/log/external:z
+   - /data/ITR-API/instance/translations:/data/ITR-data/instance/translations:z
+   - /data/ITR-API/instance/media:/data/ITR-data/instance/media:z
+   - /data/ITR-API/instance/cache:/data/ITR-data/instance/cache:z
+  environment:
+   - ITRPORT=80
+   - ITRTHREADS=5
   restart: always
   networks:
    - itr-network

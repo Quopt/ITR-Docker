@@ -36,9 +36,9 @@ cd /data
 mkdir ITR-data | true
 chmod 777 ITR-data | true
 mkdir ITR-data/instance | true
-mkdir ITR-data/instance | true
 mkdir ITR-data/instance/media | true
-mkdir ITR-data/instance/log | true
+mkdir -p ITR-data/instance/log/internal | true
+mkdir -p ITR-data/instance/log/external | true
 mkdir ITR-data/instance/translations | true
 mkdir ITR-data/instance/cache | true
 mkdir ITR-data/database | true
