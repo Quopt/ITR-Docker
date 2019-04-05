@@ -61,7 +61,7 @@ services:
   image: itr-postgres-container
   container_name: itr-postgresql
   volumes:
-   - /data/ITR-data/database/data:/var/lib/postgresql/data:z
+   - /data/ITR-data/database:/var/lib/postgresql/data:z
    - /data/ITR-data/database/backup:/backup:z  
   restart: always
   networks:
