@@ -80,6 +80,8 @@ git fetch --all
 git reset --hard origin/master
 cd ..
 cd ITR-Docker
+git fetch --all
+git reset --hard origin/master
 cd ..
 cd ITR-API
 git fetch --all
