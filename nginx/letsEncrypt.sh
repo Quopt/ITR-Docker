@@ -17,8 +17,7 @@ mv /etc/certbot/nginx.conf.template.letsencrypt /etc/nginx/nginx.conf
 
 ./acme.sh --issue --nginx -d $WWW \
 --test --key-file       /etc/nginx/ssl/certificate.key \
---fullchain-file /etc/nginx/ssl/certificate.crt \
---reloadcmd     "service nginx force-reload"
+--fullchain-file /etc/nginx/ssl/certificate.crt 
 
 cp -r /root/.acme.sh/$WWW/* /etc/nginx/ssl/. | true
 mv /etc/certbot/nginx.conf /etc/nginx/nginx.conf 
