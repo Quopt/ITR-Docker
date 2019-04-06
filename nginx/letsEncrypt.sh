@@ -1,3 +1,4 @@
+set -x
 cd /etc
 mkdir certbot
 cd certbot
@@ -11,7 +12,7 @@ chmod +x acme.sh
 ./acme.sh
 cd ~/.acme.sh
 
-acme.sh --install-cert -d $WWW \
+./acme.sh --install-cert -d $WWW \
 --key-file       /etc/nginx/ssl/certificate.key \
 --fullchain-file /etc/nginx/ssl/certificate.crt \
 --reloadcmd     "service nginx force-reload"
