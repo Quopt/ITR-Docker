@@ -123,6 +123,9 @@ chmod +x build.sh
 sudo apt install -y docker-compose
 sudo docker-compose -f ITRStack.yml up -d --force-recreate
 
+echo Waiting for the docker containers to start and install 
+sleep 300 
+
 # install certificates 
 if [ "$4" == "SSH" ]; then
  docker run -i --rm -v /data/ITR-data/nginx/certificates:/etc/nginx/ssl:z -v /data/ITR-webclient/:/usr/share/nginx/html:z -e WWW=$WWW itr-nginx-container sh -c /etc/certbot/letsEncrypt.sh
