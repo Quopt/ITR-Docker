@@ -14,3 +14,6 @@ WORKDIR /etc/certbot
 COPY letsEncrypt.sh letsEncrypt.sh
 RUN chmod +x letsEncrypt.sh
 COPY nginx.conf.template.letsencrypt nginx.conf.template.letsencrypt
+
+echo "0    2       *       *       *       /etc/certbot/letsEncrypt.sh renew" >> /etc/crontabs/root
+  
