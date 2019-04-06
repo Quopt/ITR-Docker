@@ -11,12 +11,13 @@ export WWW=$1
 export EMAIL=$2
 export PG_PASSWORD=$3
 
-if [ "$WWW" == "" -o "$EMAIL" == "" -o "$PG_PASSWORD" == "" ] ; then
+if [ "$WWW" == "" -o "$EMAIL" == "" ] ; then
         echo Please supply the following parameters in the following order
         echo $1 Name of the website
         echo $2 Your mail address
         echo $3 The DB password
         echo $4 SSH or NOSSH
+        echo Parameter 3 and 4 should only be entered when the server is installed for the first time
         echo Example
         echo './prepareITR.sh training.testdimensions.com info@testdimensionss.com ITR2018! NOSSH'
         exit
