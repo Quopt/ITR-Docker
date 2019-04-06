@@ -115,6 +115,11 @@ echo DBPREFIX=${DBPREFIX} >> .env
 chmod +x build.sh
 ./build.sh
 
+# install certificates 
+if [ "$4" == "SSH" ]; then
+ sudo docker run -i --rm -v /data/ITR-data/nginx/certificates:/etc/nginx/ssl:z -v /data/ITR-webclient/:/usr/share/nginx/html:z -e WWW=$WWW itr-nginx-container sh -c /etc/certbot/letsEncrypt.sh
+fi
+
 # The following docker containers will be started
 # itr-nginx - hosts the static website and does SSL offloading
 # itr-api - the api for the web application
@@ -124,11 +129,9 @@ chmod +x build.sh
 sudo apt install -y docker-compose
 sudo docker-compose -f ITRStack.yml up -d --force-recreate
 
-echo Waiting for the docker containers to start and install 
-sleep 300 
+echo DONE! Wait for the docker containers to start and install 
+echo Use for monitoring 
+echo  sudo docker logs -f itr-api 
 
-# install certificates 
-if [ "$4" == "SSH" ]; then
- sudo docker run -i --rm --network itrdocker_itr-network -v /data/ITR-data/nginx/certificates:/etc/nginx/ssl:z -v /data/ITR-webclient/:/usr/share/nginx/html:z -e WWW=$WWW itr-nginx-container sh -c /etc/certbot/letsEncrypt.sh
- sudo docker restart itr-nginx
-fi
+
+
