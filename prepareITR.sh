@@ -75,7 +75,6 @@ cd ..
 # change the configuration files 
 envsubst < /data/ITR-Docker/data/nginx/app.conf.template > /data/ITR-Docker/data/nginx/app.conf
 envsubst < /data/ITR-API/instance/application.cfg.template > /data/ITR-data/instance/application.cfg
-envsubst < /data/ITR-Docker/init-letsencrypt.sh.template > /data/ITR-Docker/init-letsencrypt.sh
 
 # UNCOMMENT FOR certificate support
 # envsubst < /data/ITR-Docker/nginx/nginx.conf.template.public > /data/ITR-Docker/nginx/nginx.conf
@@ -84,11 +83,6 @@ if [ ! "$(ls -A /data/ITR-data/instance/translations)" ]; then
     echo "Initialising translations folder"
     cp /data/ITR-API/instance/translations/*.json /data/ITR-data/instance/translations/. 
 fi
-
-# Retrieve a certificate for this site
-chmod +x /data/ITR-Docker/init-letsencrypt.sh
-cd /data/ITR-Docker
-./init-letsencrypt.sh
 
 # prepare for docker start
 cd /data/ITR-Docker
