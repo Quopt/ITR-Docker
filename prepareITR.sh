@@ -89,11 +89,11 @@ git reset --hard origin/master
 cd ..
 
 # change the configuration files
-envsubst < /data/ITR-Docker/data/nginx/app.conf.template > /data/ITR-Docker/data/nginx/app.conf
 envsubst < /data/ITR-API/instance/application.cfg.template > /data/ITR-data/instance/application.cfg
+sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.local > /data/ITR-Docker/nginx/nginx.conf
 
 if [ "$4" == "SSH" ]; then
- envsubst < /data/ITR-Docker/nginx/nginx.conf.template.public > /data/ITR-Docker/nginx/nginx.conf
+ sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.public > /data/ITR-Docker/nginx/nginx.conf
 fi
 
 if [ ! "$(ls -A /data/ITR-data/instance/translations)" ]; then
