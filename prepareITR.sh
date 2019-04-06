@@ -1,11 +1,16 @@
 # run in either bash or sh
 # this script demonstrates a way to start the ITR with docker 
+# this script takes the following parameters in this specific order 
+# $1 Name of the website
+# $2 Your mail address
+# $3 The DB password
+# $4 SSH or NOSSH (case sensitive)
 set -x
 
 # Set the following variables
-export PG_PASSWORD=ITR2018!
-export WWW=training.testdimensions.com
-export EMAIL=certificates@testdimensions.com
+export WWW=$1
+export EMAIL=$2
+export PG_PASSWORD=$3
 
 # the following variable can be changed but that is optional 
 export DBPREFIX=ITR
@@ -76,8 +81,9 @@ cd ..
 envsubst < /data/ITR-Docker/data/nginx/app.conf.template > /data/ITR-Docker/data/nginx/app.conf
 envsubst < /data/ITR-API/instance/application.cfg.template > /data/ITR-data/instance/application.cfg
 
-# UNCOMMENT FOR certificate support
-# envsubst < /data/ITR-Docker/nginx/nginx.conf.template.public > /data/ITR-Docker/nginx/nginx.conf
+if [ $4 == "SSH" ]; then 
+ envsubst < /data/ITR-Docker/nginx/nginx.conf.template.public > /data/ITR-Docker/nginx/nginx.conf
+fi 
 
 if [ ! "$(ls -A /data/ITR-data/instance/translations)" ]; then 
     echo "Initialising translations folder"
@@ -95,6 +101,11 @@ echo DBPREFIX=${DBPREFIX} >> .env
 chmod +x build.sh
 ./build.sh
 
+# install certificates first
+if [ $4 == "SSH" ]; then 
+ docker run -i --rm -v /data/ITR-data/nginx/certificates:/etc/nginx/ssl:z -v /data/ITR-webclient/:/usr/share/nginx/html:z -e WWW=$WWW itr-nginx-container sh -c /etc/certbot/letsEncrypt.sh 
+fi 
+
 # The following docker containers will be started
 # itr-nginx - hosts the static website and does SSL offloading
 # itr-api - the api for the web application
@@ -103,3 +114,4 @@ chmod +x build.sh
 # itr-postgresql - the database for the ITR
 sudo apt install -y docker-compose
 sudo docker-compose -f ITRStack.yml up -d --force-recreate
+
