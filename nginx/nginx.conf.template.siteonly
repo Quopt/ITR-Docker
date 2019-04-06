@@ -39,7 +39,7 @@ http {
     listen [::]:80;
           
     root /usr/share/nginx/html/;
-    server_name localhost;
+    server_name $WWW;
   
     location ~ ^(?!\/api|\/externalapi).* {
       try_files $uri $uri_lowercase /default.htm =404;
