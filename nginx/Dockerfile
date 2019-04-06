@@ -7,8 +7,8 @@ RUN apk update && apk add wget cifs-utils samba samba-common-tools supervisor ap
 WORKDIR /etc/nginx
 COPY nginx.conf nginx.conf
 
-#WORKDIR /etc/nginc/conf.d
-#COPY itr_site.conf . 
-
 RUN mkdir /etc/nginx/ssl
 RUN chmod 666 /etc/nginx/ssl
+
+WORKDIR /etc/certbot
+COPY letsEncrypt.sh .
