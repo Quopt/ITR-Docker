@@ -11,4 +11,5 @@ RUN mkdir /etc/nginx/ssl
 RUN chmod 666 /etc/nginx/ssl
 
 WORKDIR /etc/certbot
-COPY letsEncrypt.sh .
+COPY letsEncrypt.sh letsEncrypt.sh
+RUN chmod +x letsEncrypt.sh
