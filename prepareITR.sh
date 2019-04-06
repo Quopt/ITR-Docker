@@ -1,18 +1,27 @@
 # run in either bash or sh
-# this script demonstrates a way to start the ITR with docker 
-# this script takes the following parameters in this specific order 
+# this script demonstrates a way to start the ITR with docker
+# this script takes the following parameters in this specific order
 # $1 Name of the website
 # $2 Your mail address
 # $3 The DB password
 # $4 SSH or NOSSH (case sensitive)
-set -x
 
 # Set the following variables
 export WWW=$1
 export EMAIL=$2
 export PG_PASSWORD=$3
 
-# the following variable can be changed but that is optional 
+if [ "$WWW" == "" -o "$EMAIL" == "" -o "$PG_PASSWORD" == "" ] ; then
+        echo Please supply the following parameters in the following order
+        echo $1 Name of the website
+        echo $2 Your mail address
+        echo $3 The DB password
+        echo $4 SSH or NOSSH
+        exit
+fi
+set -x
+
+# the following variable can be changed but that is optional
 export DBPREFIX=ITR
 
 # Install
@@ -22,14 +31,14 @@ sudo apt-get update && sudo apt-get install -y git && sudo apt-get -y upgrade &&
     ca-certificates \
     curl \
     gnupg-agent \
-    software-properties-common 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 
+    software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo apt-key fingerprint 0EBFCD88
-# change this line depending on your cpu architecture. this assumes x86	
+# change this line depending on your cpu architecture. this assumes x86
 sudo add-apt-repository \
      "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
      $(lsb_release -cs) \
-     stable" 
+     stable"
 # finally install docker
 sudo apt-get update  && sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 sudo docker run hello-world
@@ -38,7 +47,7 @@ cd /
 sudo mkdir data | true
 sudo chmod 777 data | true
 cd /data
-# the following folder will hold all state information for the ITR 
+# the following folder will hold all state information for the ITR
 # in case of multiple servers this setup needs to be reconsidered
 mkdir ITR-data | true
 chmod 777 ITR-data | true
@@ -77,17 +86,17 @@ git fetch --all
 git reset --hard origin/master
 cd ..
 
-# change the configuration files 
+# change the configuration files
 envsubst < /data/ITR-Docker/data/nginx/app.conf.template > /data/ITR-Docker/data/nginx/app.conf
 envsubst < /data/ITR-API/instance/application.cfg.template > /data/ITR-data/instance/application.cfg
 
-if [ $4 == "SSH" ]; then 
+if [ "$4" == "SSH" ]; then
  envsubst < /data/ITR-Docker/nginx/nginx.conf.template.public > /data/ITR-Docker/nginx/nginx.conf
-fi 
+fi
 
-if [ ! "$(ls -A /data/ITR-data/instance/translations)" ]; then 
+if [ ! "$(ls -A /data/ITR-data/instance/translations)" ]; then
     echo "Initialising translations folder"
-    cp /data/ITR-API/instance/translations/*.json /data/ITR-data/instance/translations/. 
+    cp /data/ITR-API/instance/translations/*.json /data/ITR-data/instance/translations/.
 fi
 
 # prepare for docker start
@@ -97,14 +106,14 @@ echo WWW=${WWW} >> .env
 echo EMAIL=${EMAIL} >> .env
 echo DBPREFIX=${DBPREFIX} >> .env
 
-# build whatever containers are necessary 
+# build whatever containers are necessary
 chmod +x build.sh
 ./build.sh
 
 # install certificates first
-if [ $4 == "SSH" ]; then 
- docker run -i --rm -v /data/ITR-data/nginx/certificates:/etc/nginx/ssl:z -v /data/ITR-webclient/:/usr/share/nginx/html:z -e WWW=$WWW itr-nginx-container sh -c /etc/certbot/letsEncrypt.sh 
-fi 
+if [ "$4" == "SSH" ]; then
+ docker run -i --rm -v /data/ITR-data/nginx/certificates:/etc/nginx/ssl:z -v /data/ITR-webclient/:/usr/share/nginx/html:z -e WWW=$WWW itr-nginx-container sh -c /etc/certbot/letsEncrypt.sh
+fi
 
 # The following docker containers will be started
 # itr-nginx - hosts the static website and does SSL offloading
@@ -114,4 +123,3 @@ fi
 # itr-postgresql - the database for the ITR
 sudo apt install -y docker-compose
 sudo docker-compose -f ITRStack.yml up -d --force-recreate
-
