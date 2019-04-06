@@ -15,9 +15,12 @@ cd ~/.acme.sh
 mv /etc/nginx/nginx.conf /etc/certbot/nginx.conf
 mv /etc/certbot/nginx.conf.template.letsencrypt /etc/nginx/nginx.conf
 
+/usr/sbin/nginx
+
 ./acme.sh --issue --nginx -d $WWW \
 --test --key-file       /etc/nginx/ssl/certificate.key \
---fullchain-file /etc/nginx/ssl/certificate.crt 
+--fullchain-file /etc/nginx/ssl/certificate.crt \
+--reloadcmd     "/usr/sbin/nginx"
 
 cp -r /root/.acme.sh/$WWW/* /etc/nginx/ssl/. | true
 mv /etc/certbot/nginx.conf /etc/nginx/nginx.conf 
