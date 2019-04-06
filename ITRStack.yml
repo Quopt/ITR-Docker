@@ -28,6 +28,7 @@ services:
    - /data/ITR-API/instance/translations:/data/ITR-data/instance/translations:z
    - /data/ITR-API/instance/media:/data/ITR-data/instance/media:z
    - /data/ITR-API/instance/cache:/data/ITR-data/instance/cache:z
+   - /data/ITR-webclient/:/usr/share/nginx/html:z
   environment:
    - ITRPORT=80
    - ITRTHREADS=75
@@ -48,6 +49,7 @@ services:
    - /data/ITR-API/instance/translations:/data/ITR-data/instance/translations:z
    - /data/ITR-API/instance/media:/data/ITR-data/instance/media:z
    - /data/ITR-API/instance/cache:/data/ITR-data/instance/cache:z
+   - /data/ITR-webclient/:/usr/share/nginx/html:z
   environment:
    - ITRPORT=80
    - ITRTHREADS=5
