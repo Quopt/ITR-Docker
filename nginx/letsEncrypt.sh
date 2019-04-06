@@ -17,4 +17,4 @@ cd ~/.acme.sh
 --fullchain-file /etc/nginx/ssl/certificate.crt \
 --reloadcmd     "service nginx force-reload"
 
-cp /root/.acme.sh/$WWW/* /etc/nginx/ssl/. | true
+cp -r /root/.acme.sh/$WWW/* /etc/nginx/ssl/. | true
