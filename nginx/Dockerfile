@@ -13,4 +13,4 @@ RUN chmod 666 /etc/nginx/ssl
 WORKDIR /etc/certbot
 COPY letsEncrypt.sh letsEncrypt.sh
 RUN chmod +x letsEncrypt.sh
-COPY nginx.conf.template.siteonly nginx.conf.template.siteonly
+COPY nginx.conf.template.letsencrypt nginx.conf.template.letsencrypt
