@@ -17,6 +17,8 @@ if [ "$WWW" == "" -o "$EMAIL" == "" -o "$PG_PASSWORD" == "" ] ; then
         echo $2 Your mail address
         echo $3 The DB password
         echo $4 SSH or NOSSH
+        echo Example
+        echo './prepareITR.sh training.testdimensions.com info@testdimensionss.com ITR2018! NOSSH'
         exit
 fi
 set -x
