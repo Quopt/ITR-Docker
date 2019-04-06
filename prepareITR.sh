@@ -16,7 +16,7 @@ if [ "$WWW" == "" -o "$EMAIL" == "" ] ; then
         echo $1 Name of the website
         echo $2 Your mail address
         echo $3 The DB password
-        echo $4 SSH or NOSSH
+        echo $4 SSH or SSHPRIVATE or NOSSH 
         echo Parameter 3 and 4 should only be entered when the server is installed for the first time
         echo Example
         echo './prepareITR.sh training.testdimensions.com info@testdimensionss.com ITR2018! NOSSH'
@@ -96,7 +96,7 @@ envsubst < /data/ITR-API/instance/application.cfg.template > /data/ITR-data/inst
 sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.local > /data/ITR-Docker/nginx/nginx.conf
 sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.siteonly > /data/ITR-Docker/nginx/nginx.conf.template.letsencrypt
 
-if [ "$4" == "SSH" ]; then
+if [ "$4" == "SSH" -o "$4" == "SSHPRIVATE" ]; then
  sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.public > /data/ITR-Docker/nginx/nginx.conf
 fi
 
