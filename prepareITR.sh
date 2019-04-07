@@ -102,7 +102,7 @@ fi
 
 if [ ! "$(ls -A /data/ITR-data/instance/translations)" ]; then
     echo "Initialising translations folder"
-    cp /data/ITR-API/instance/translations/*.json /data/ITR-data/instance/translations/.
+    #cp /data/ITR-API/instance/translations/*.json /data/ITR-data/instance/translations/.
 fi
 
 # prepare for docker start
