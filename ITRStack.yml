@@ -26,7 +26,7 @@ services:
    - /data/ITR-API:/etc/ITR/API:z
    - /data/ITR-public-API:/etc/ITR/Public-API:z
    - /data/ITR-data/instance/application.cfg:/etc/ITR/API/instance/application.cfg:z
-   - /data/ITR-data/instance/log:/etc/ITR/API/instance/log/internal:z
+   - /data/ITR-data/instance/log/internal:/etc/ITR/API/instance/log:z
    - /data/ITR-data/instance/translations:/etc/ITR/API/instance/translations:z
    - /data/ITR-data/instance/media:/etc/ITR/API/instance/media:z
    - /data/ITR-data/instance/cache:/etc/ITR/API/instance/cache:z
@@ -47,7 +47,7 @@ services:
    - /data/ITR-API:/etc/ITR/API:z
    - /data/ITR-public-API:/etc/ITR/Public-API:z
    - /data/ITR-data/instance/application.cfg:/etc/ITR/API/instance/application.cfg:z
-   - /data/ITR-data/instance/log:/etc/ITR/API/instance/log/internal:z
+   - /data/ITR-data/instance/log/external:/etc/ITR/API/instance/log:z
    - /data/ITR-data/instance/translations:/etc/ITR/API/instance/translations:z
    - /data/ITR-data/instance/media:/etc/ITR/API/instance/media:z
    - /data/ITR-data/instance/cache:/etc/ITR/API/instance/cache:z
