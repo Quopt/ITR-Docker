@@ -100,11 +100,6 @@ if [ "$4" == "SSH" -o "$4" == "SSHPRIVATE" ]; then
  sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.public > /data/ITR-Docker/nginx/nginx.conf
 fi
 
-if [ ! "$(ls -A /data/ITR-data/instance/translations)" ]; then
-    echo "Initialising translations folder"
-    #cp /data/ITR-API/instance/translations/*.json /data/ITR-data/instance/translations/.
-fi
-
 # prepare for docker start
 cd /data/ITR-Docker
 echo PG_PASSWORD=${PG_PASSWORD} > .env
@@ -125,7 +120,6 @@ fi
 # itr-nginx - hosts the static website and does SSL offloading
 # itr-api - the api for the web application
 # itr-public-api - the external api for other users
-# itr-certbot - check for the renew of the server certificates every 12 hours
 # itr-postgresql - the database for the ITR
 sudo apt install -y docker-compose
 sudo docker-compose -f ITRStack.yml up -d --force-recreate
