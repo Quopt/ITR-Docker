@@ -78,6 +78,7 @@ http {
     }
   
     location ~ ^(?!\/api|\/externalapi).* {
+      expires 1h;
       try_files $uri $uri_lowercase /default.htm =404;
     }
   }
