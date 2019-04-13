@@ -72,23 +72,28 @@ git clone https://github.com/Quopt/ITR-Docker.git
 cd ITR-webclient
 git fetch --all
 git reset --hard origin/master
+git pull origin master
 cd ..
 sudo chmod -R 777 ITR-webclient/
 cd ITR-public-API
 git fetch --all
 git reset --hard origin/master
+git pull origin master
 cd ..
 cd ITR-API
 git fetch --all
 git reset --hard origin/master
+git pull origin master
 cd ..
 cd ITR-Docker
 git fetch --all
 git reset --hard origin/master
+git pull origin master
 cd ..
 cd ITR-API
 git fetch --all
 git reset --hard origin/master
+git pull origin master
 cd ..
 
 # change the configuration files
