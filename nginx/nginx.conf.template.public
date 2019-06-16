@@ -48,7 +48,11 @@ http {
     listen [::]:80;
 
     server_name $WWW; 
-    return 301 https://$host$request_uri;
+    
+    location ~ ^(?!\/.well-known).* {
+     return 301 https://$host$request_uri;
+    }
+
    }
    
    server {   
