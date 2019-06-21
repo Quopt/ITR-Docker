@@ -34,7 +34,7 @@ services:
    - /data/ITR-webclient/:/usr/share/nginx/html:z
   environment:
    - ITRPORT=80
-   - ITRTHREADS=75
+   - ITRTHREADS=40
   restart: always
   networks:
    - itr-network
