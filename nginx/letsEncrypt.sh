@@ -12,16 +12,17 @@ chmod +x acme.sh
 ./acme.sh
 cd ~/.acme.sh
 
-mv /etc/nginx/nginx.conf /etc/certbot/nginx.conf
-mv /etc/certbot/nginx.conf.template.letsencrypt /etc/nginx/nginx.conf
+cp /etc/nginx/nginx.conf /etc/certbot/nginx.conf
 
 /usr/sbin/nginx
 echo $1
 
-./acme.sh --$1 --nginx -d $WWW \
---key-file       /etc/nginx/ssl/certificate.key \
---fullchain-file /etc/nginx/ssl/certificate.crt \
---reloadcmd     "/usr/sbin/nginx"
+for value in $WWW
+do
+ ./acme.sh --$1 --nginx -d $value \
+ --key-file       /etc/nginx/ssl/$value.key \
+ --fullchain-file /etc/nginx/ssl/$value.crt \
+ --reloadcmd     "/usr/sbin/nginx"
 
-cp -r /root/.acme.sh/$WWW/* /etc/nginx/ssl/. | true
-mv /etc/certbot/nginx.conf /etc/nginx/nginx.conf 
+ cp -r /root/.acme.sh/$value/* /etc/nginx/ssl/. | true
+done
