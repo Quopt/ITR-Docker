@@ -5,17 +5,11 @@ chmod +x acme.sh
 ./acme.sh --install --nocron
 
 export DOMAIN_PATH=/etc/nginx/ssl
-~/.acme.sh/acme.sh --renew --nginx -d $WWW \
- --reloadcmd  "/usr/sbin/nginx -s reload" --home /etc/nginx 
+for value in $WWW
+do
+ ~/.acme.sh/acme.sh --renew --nginx -d $value \
+  --reloadcmd  "/usr/sbin/nginx -s reload" --home /etc/nginx 
+done
 cd /etc/nginx/ssl
-file1=`md5sum certificate.crt | cut -d' ' -f1`
-file2=`md5sum $WWW.cer | cut -d' ' -f1`
-if [ ! "$file1" == "$file2" ]
-then
- echo Installing new certificate and restarting nginx
- cp $WWW.cer certificate.crt
- /usr/sbin/nginx -s reload
-else
- echo Certificate is not renewed ...
-fi
-
+echo Restarting nginx
+/usr/sbin/nginx -s reload
