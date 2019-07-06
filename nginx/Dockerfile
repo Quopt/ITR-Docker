@@ -11,9 +11,13 @@ RUN mkdir /etc/nginx/ssl
 RUN chmod 666 /etc/nginx/ssl
 
 WORKDIR /etc/certbot
+COPY buildNginx.sh buildNginx.sh
+COPY nginx.A nginx.A
+COPY nginx.B nginx.B
 COPY letsEncrypt.sh letsEncrypt.sh
 COPY letsEncryptRenew.sh letsEncryptRenew.sh
 RUN chmod +x letsEncrypt.sh
+RUN chmod +x buildNginx.sh
 RUN chmod +x letsEncryptRenew.sh
 COPY nginx.conf.template.letsencrypt nginx.conf.template.letsencrypt
 
