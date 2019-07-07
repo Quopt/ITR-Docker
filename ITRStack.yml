@@ -70,7 +70,7 @@ services:
    - /data/ITR-data/database/backup:/backup:z
   restart: always
   ports:
-   - 25432:5432  
+   - 127.0.0.1:25432:5432  
   environment:
    - PG_PASSWORD=${PG_PASSWORD}
   networks:
