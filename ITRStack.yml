@@ -69,6 +69,8 @@ services:
    - /data/ITR-data/database/data:/var/lib/postgresql/data:z
    - /data/ITR-data/database/backup:/backup:z
   restart: always
+  ports:
+   - 25432:5432  
   environment:
    - PG_PASSWORD=${PG_PASSWORD}
   networks:
