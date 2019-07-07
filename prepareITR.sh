@@ -111,6 +111,8 @@ fi
 # prepare for docker start
 cd /data/ITR-Docker
 sudo rm .env
+sudo touch .env
+sudo chmod 666 .env
 sudo echo PG_PASSWORD=${PG_PASSWORD} > .env
 sudo echo WWW=${WWW} >> .env
 sudo echo EMAIL=${EMAIL} >> .env
