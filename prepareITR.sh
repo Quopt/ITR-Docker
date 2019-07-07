@@ -103,9 +103,9 @@ cd ..
 sudo chmod 666 /data/ITR-data/instance/application.cfg
 sudo chmod 666 /data/ITR-Docker/nginx/nginx.conf
 sudo chmod 666 /data/ITR-Docker/nginx/nginx.conf.template.letsencrypt
-sudo envsubst < /data/ITR-API/instance/application.cfg.template > /data/ITR-data/instance/application.cfg
-sudo sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.local > /data/ITR-Docker/nginx/nginx.conf
-sudo sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.siteonly > /data/ITR-Docker/nginx/nginx.conf.template.letsencrypt
+envsubst < /data/ITR-API/instance/application.cfg.template > /data/ITR-data/instance/application.cfg
+sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.local > /data/ITR-Docker/nginx/nginx.conf
+sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.siteonly > /data/ITR-Docker/nginx/nginx.conf.template.letsencrypt
 
 if [ "$4" == "SSH" -o "$4" == "SSHPRIVATE" ]; then
  sudo sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.public > /data/ITR-Docker/nginx/nginx.conf
