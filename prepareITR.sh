@@ -5,11 +5,13 @@
 # $2 Your mail address
 # $3 The DB password
 # $4 SSH or NOSSH (case sensitive)
+# $5 ip address with access to postgresql
 
 # Set the following variables
 export WWW=$1
 export EMAIL=$2
 export PG_PASSWORD=$3
+export PG_IP=$5
 
 if [ "$WWW" == "" -o "$EMAIL" == "" ] ; then
         echo Please supply the following parameters in the following order
@@ -17,6 +19,7 @@ if [ "$WWW" == "" -o "$EMAIL" == "" ] ; then
         echo $2 Your mail address
         echo $3 The DB password
         echo $4 SSH or SSHPRIVATE or NOSSH 
+        echo $5 ip address with access to postgresql
         echo Parameter 3 and 4 should only be entered when the server is installed for the first time
         echo Example
         echo './prepareITR.sh training.testdimensions.com info@testdimensionss.com ITR2018! NOSSH'
@@ -111,6 +114,11 @@ sudo echo PG_PASSWORD=${PG_PASSWORD} > .env
 sudo echo WWW=${WWW} >> .env
 sudo echo EMAIL=${EMAIL} >> .env
 sudo echo DBPREFIX=${DBPREFIX} >> .env
+if [ -z "$PG_IP" ]
+then
+ export PG_IP=127.0.0.1
+fi
+sudo echo PG_IP=${PG_IP} >> .env
 
 # build whatever containers are necessary
 sudo chmod +x build.sh
