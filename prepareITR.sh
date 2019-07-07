@@ -52,69 +52,69 @@ sudo chmod 777 data | true
 cd /data
 # the following folder will hold all state information for the ITR
 # in case of multiple servers this setup needs to be reconsidered
-mkdir ITR-data | true
-chmod 777 ITR-data | true
-mkdir ITR-data/instance | true
-mkdir ITR-data/instance/media | true
-mkdir -p ITR-data/instance/log/internal | true
-mkdir -p ITR-data/instance/log/external | true
-mkdir ITR-data/instance/translations | true
-mkdir ITR-data/instance/cache | true
-mkdir -p ITR-data/database/data | true
-mkdir -p ITR-data/database/backup | true
-mkdir -p ITR-data/nginx/certificates | true
+sudo mkdir ITR-data | true
+sudo chmod 777 ITR-data | true
+sudo mkdir ITR-data/instance | true
+sudo mkdir ITR-data/instance/media | true
+sudo mkdir -p ITR-data/instance/log/internal | true
+sudo mkdir -p ITR-data/instance/log/external | true
+sudo mkdir ITR-data/instance/translations | true
+sudo mkdir ITR-data/instance/cache | true
+sudo mkdir -p ITR-data/database/data | true
+sudo mkdir -p ITR-data/database/backup | true
+sudo mkdir -p ITR-data/nginx/certificates | true
 # get the latest source code from github
-git clone https://github.com/Quopt/ITR-webclient.git
-git clone https://github.com/Quopt/ITR-public-API.git
-git clone https://github.com/Quopt/ITR-API.git
-git clone https://github.com/Quopt/ITR-Docker.git
+sudo git clone https://github.com/Quopt/ITR-webclient.git
+sudo git clone https://github.com/Quopt/ITR-public-API.git
+sudo git clone https://github.com/Quopt/ITR-API.git
+sudo git clone https://github.com/Quopt/ITR-Docker.git
 
 cd ITR-webclient
-git fetch --all
-git reset --hard origin/master
-git pull origin master
+sudo git fetch --all
+sudo git reset --hard origin/master
+sudo git pull origin master
 cd ..
 sudo chmod -R 777 ITR-webclient/
 cd ITR-public-API
-git fetch --all
-git reset --hard origin/master
-git pull origin master
+sudo git fetch --all
+sudo git reset --hard origin/master
+sudo git pull origin master
 cd ..
 cd ITR-API
-git fetch --all
-git reset --hard origin/master
-git pull origin master
+sudo git fetch --all
+sudo git reset --hard origin/master
+sudo git pull origin master
 cd ..
 cd ITR-Docker
-git fetch --all
-git reset --hard origin/master
-git pull origin master
+sudo git fetch --all
+sudo git reset --hard origin/master
+sudo git pull origin master
 cd ..
 cd ITR-API
-git fetch --all
-git reset --hard origin/master
-git pull origin master
+sudo git fetch --all
+sudo git reset --hard origin/master
+sudo git pull origin master
 cd ..
 
 # change the configuration files
-envsubst < /data/ITR-API/instance/application.cfg.template > /data/ITR-data/instance/application.cfg
-sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.local > /data/ITR-Docker/nginx/nginx.conf
-sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.siteonly > /data/ITR-Docker/nginx/nginx.conf.template.letsencrypt
+sudo envsubst < /data/ITR-API/instance/application.cfg.template > /data/ITR-data/instance/application.cfg
+sudo sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.local > /data/ITR-Docker/nginx/nginx.conf
+sudo sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.siteonly > /data/ITR-Docker/nginx/nginx.conf.template.letsencrypt
 
 if [ "$4" == "SSH" -o "$4" == "SSHPRIVATE" ]; then
- sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.public > /data/ITR-Docker/nginx/nginx.conf
+ sudo sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.public > /data/ITR-Docker/nginx/nginx.conf
 fi
 
 # prepare for docker start
 cd /data/ITR-Docker
-echo PG_PASSWORD=${PG_PASSWORD} > .env
-echo WWW=${WWW} >> .env
-echo EMAIL=${EMAIL} >> .env
-echo DBPREFIX=${DBPREFIX} >> .env
+sudo echo PG_PASSWORD=${PG_PASSWORD} > .env
+sudo echo WWW=${WWW} >> .env
+sudo echo EMAIL=${EMAIL} >> .env
+sudo echo DBPREFIX=${DBPREFIX} >> .env
 
 # build whatever containers are necessary
-chmod +x build.sh
-./build.sh
+sudo chmod +x build.sh
+sudo ./build.sh
 
 # install certificates 
 if [ "$4" == "SSH" ]; then
