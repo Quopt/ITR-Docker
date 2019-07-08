@@ -10,5 +10,5 @@ echo } >> nginx.conf
 
 
 cp nginx.conf /etc/nginx/nginx.conf
-sh -c letsEncrypt.sh issue
+./letsEncrypt.sh
 nginx -s reload
