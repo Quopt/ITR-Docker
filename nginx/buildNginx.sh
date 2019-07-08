@@ -7,3 +7,8 @@ do
 done
 
 echo } >> nginx.conf
+
+
+cp nginx.conf /etc/nginx/nginx.conf
+./letsEncrypt.sh
+nginx -s reload
