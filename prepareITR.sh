@@ -117,6 +117,10 @@ sudo rm .env
 sudo touch .env
 sudo chmod 666 .env
 sudo echo PG_PASSWORD=${PG_PASSWORD} > .env
+if [ -f "multiwww.txt" ]
+then
+ export WWW=$(cat multiwww.txt)
+fi
 sudo echo WWW=${WWW} >> .env
 sudo echo EMAIL=${EMAIL} >> .env
 sudo echo DBPREFIX=${DBPREFIX} >> .env
@@ -142,6 +146,12 @@ fi
 # itr-postgresql - the database for the ITR
 sudo apt install -y docker-compose
 sudo docker-compose -f ITRStack.yml up -d --force-recreate
+
+sleep 5
+if [ -f "multiwww.txt" ]
+then
+ sudo docker exec -it itr-nginx sh -c /etc/certbot/buildNginx.sh
+fi
 
 echo DONE! Wait for the docker containers to start and install 
 echo Use for monitoring 
