@@ -20,6 +20,6 @@ echo $1
 for value in $WWW
 do
  echo $value
- ./acme.sh --$1 --nginx -d $value --key-file /etc/nginx/ssl/$value.key --fullchain-file /etc/nginx/ssl/$value.crt  --reloadcmd  "/usr/sbin/nginx"
+ ./acme.sh --issue --nginx -d $value --key-file /etc/nginx/ssl/$value.key --fullchain-file /etc/nginx/ssl/$value.crt  --reloadcmd  "/usr/sbin/nginx"
  cp -r /root/.acme.sh/$value/* /etc/nginx/ssl/. | true
 done
