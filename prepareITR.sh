@@ -119,6 +119,7 @@ sudo chmod 666 .env
 sudo echo PG_PASSWORD=${PG_PASSWORD} > .env
 if [ -f "multiwww.txt" ]
 then
+ echo Multiple www listening addresses found
  export WWW=$(cat multiwww.txt)
 fi
 sudo echo WWW=${WWW} >> .env
