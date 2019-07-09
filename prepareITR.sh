@@ -121,9 +121,10 @@ sudo echo PG_PASSWORD=${PG_PASSWORD} > .env
 if [ -f "multiwww.txt" ]
 then
  echo Multiple www listening addresses found
- export WWW=$(cat multiwww.txt)
+ sudo echo WWW=$(cat multiwww.txt) >> .env
+else
+ sudo echo WWW=${WWW} >> .env
 fi
-sudo echo WWW=${WWW} >> .env
 sudo echo EMAIL=${EMAIL} >> .env
 sudo echo DBPREFIX=${DBPREFIX} >> .env
 if [ -z "$PG_IP" ]
