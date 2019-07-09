@@ -1,7 +1,7 @@
 
 cd /etc/certbot/
 export WWWOLD=$WWW
-for value in $WWW
+for value in $WWWOLD
 do
  export WWW=$value
  sed 's/$WWWInstance/server_name '$value';/g' nginx.A2 > nginx.conf
