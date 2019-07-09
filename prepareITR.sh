@@ -100,6 +100,7 @@ sudo git pull origin master
 cd ..
 
 # change the configuration files
+sudo touch /data/ITR-data/instance/application.cfg
 sudo chmod 666 /data/ITR-data/instance/application.cfg
 sudo chmod 666 /data/ITR-Docker/nginx/nginx.conf
 sudo chmod 666 /data/ITR-Docker/nginx/nginx.conf.template.letsencrypt
