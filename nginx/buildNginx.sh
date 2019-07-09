@@ -8,6 +8,7 @@ do
  cp nginx.conf /etc/nginx/nginx.conf
  cat /etc/nginx/nginx.conf
  ./letsEncrypt.sh
+ cd /etc/certbot/
 done
 
 export WWW=$WWWOLD
