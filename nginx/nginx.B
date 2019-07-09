@@ -1,7 +1,7 @@
 
    server {
-    listen 443 ssl;
-    listen [::]:443;
+    listen 443 ssl http2;
+    listen [::]:443 http2;
 
     ssl_certificate      /etc/nginx/ssl/$WWWInstance.crt;
     ssl_certificate_key  /etc/nginx/ssl/$WWWInstance.key;
