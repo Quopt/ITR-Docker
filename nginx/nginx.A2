@@ -33,15 +33,6 @@ http {
     keepalive_timeout  65;
     #gzip  on;
 
-   upstream backend-itr-api {
-        server itr-api:80;
-   }
-
-
-   upstream backend-itr-api-public {
-        server itr-public-api:80;
-   }
-
 
    server {
     listen 80;
