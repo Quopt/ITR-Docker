@@ -26,7 +26,7 @@ do
  echo $value
  ./acme.sh --issue --nginx -d $value --key-file /etc/nginx/ssl/$value.key --fullchain-file /etc/nginx/ssl/$value.crt  --reloadcmd  "/usr/sbin/nginx"
  cp -r /root/.acme.sh/$value/* /etc/nginx/ssl/. | true
-don
+done
 if [ "$1" == "FIRSTSTART" ]
 then
  cp /etc/certbot/nginx.conf /etc/nginx/nginx.conf
