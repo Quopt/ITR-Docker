@@ -139,7 +139,7 @@ sudo ./build.sh
 
 # install certificates 
 if [ "$4" == "SSH" ]; then
- sudo docker run -i --rm -v /data/ITR-data/nginx/certificates:/etc/nginx/ssl:z -v /data/ITR-webclient/:/usr/share/nginx/html:z -p 80:80 -e WWW=$WWW itr-nginx-container sh -c "/etc/certbot/letsEncrypt.sh issue"
+ sudo docker run -i --rm -v /data/ITR-data/nginx/certificates:/etc/nginx/ssl:z -v /data/ITR-webclient/:/usr/share/nginx/html:z -p 80:80 -e WWW=$WWW itr-nginx-container sh -c "/etc/certbot/letsEncrypt.sh FIRSTSTART"
 fi
 
 # The following docker containers will be started
