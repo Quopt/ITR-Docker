@@ -1,4 +1,4 @@
-cat nginx.A > nginx.conf
+
 for value in $WWW
 do
  export WWWInstance=$value
