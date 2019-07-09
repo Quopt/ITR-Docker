@@ -1,0 +1,57 @@
+user  nginx;
+worker_processes  1;
+load_module /usr/lib/nginx/modules/ngx_http_perl_module.so;
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+
+    perl_modules perl/lib;
+
+    perl_set $uri_lowercase 'sub {
+      my $r = shift;
+      my $uri = $r->uri;
+      $uri = lc($uri);
+      return $uri;
+    }';
+
+    default_type  application/octet-stream;
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+    keepalive_timeout  65;
+    #gzip  on;
+
+   upstream backend-itr-api {
+        server itr-api:80;
+   }
+
+
+   upstream backend-itr-api-public {
+        server itr-public-api:80;
+   }
+
+
+   server {
+    listen 80;
+    listen [::]:80;
+
+    $WWWInstance
+
+    location ~ ^(?!\/.well-known).* {
+     return 301 https://$host$request_uri;
+    }
+
+   }
+}
