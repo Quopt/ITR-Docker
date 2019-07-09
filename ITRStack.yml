@@ -19,6 +19,11 @@ services:
    - itr-api
    - itr-public-api
    - itr-postgresql
+  ulimits:
+    nproc: 65535
+    nofile:
+      soft: 32000
+      hard: 60000
 
  itr-api:
   image: itr-internal-api-container
@@ -40,6 +45,11 @@ services:
    - itr-network
   depends_on:
    - itr-postgresql
+  ulimits:
+    nproc: 65535
+    nofile:
+      soft: 32000
+      hard: 60000
 
  itr-public-api:
   image: itr-external-api-container
@@ -61,6 +71,11 @@ services:
    - itr-network
   depends_on:
    - itr-postgresql
+  ulimits:
+    nproc: 65535
+    nofile:
+      soft: 32000
+      hard: 60000
 
  itr-postgresql:
   image: itr-postgres-container
@@ -75,6 +90,11 @@ services:
    - PG_PASSWORD=${PG_PASSWORD}
   networks:
    - itr-network
+  ulimits:
+    nproc: 65535
+    nofile:
+      soft: 32000
+      hard: 60000
 
 networks:
   itr-network:
