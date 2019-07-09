@@ -30,5 +30,4 @@ don
 if [ "$1" == "FIRSTSTART" ]
 then
  cp /etc/certbot/nginx.conf /etc/nginx/nginx.conf
- nginx -s reload
 fi 
