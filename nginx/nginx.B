@@ -1,5 +1,6 @@
 
    server {
+    client_max_body_size 20M;
     listen 443 ssl http2;
     listen [::]:443 http2;
 
