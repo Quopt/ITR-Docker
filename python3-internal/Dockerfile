@@ -9,6 +9,8 @@ RUN pip3 install --upgrade pip
 WORKDIR /etc/ITR
 
 COPY startMe.sh .
-RUN chmod 777 startMe.sh && chmod +X startMe.sh
+COPY requirements.txt .
+RUN chmod 777 startMe.sh && chmod +X startMe.sh && \
+    pip install -r requirements.txt
 
 ENTRYPOINT ["sh","-c","/etc/ITR/startMe.sh"]
