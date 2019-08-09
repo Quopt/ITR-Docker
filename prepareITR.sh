@@ -99,8 +99,10 @@ sudo git reset --hard origin/master
 sudo git pull origin master
 cd ..
 
-cp ITR-API/requirements.txt ITR-Docker/python3-internal/.
-cp ITR-API/requirements.txt ITR-Docker/python3-external/.
+sudo rm ITR-Docker/python3-internal/requirements.txt | true
+sudo rm ITR-Docker/python3-external/requirements.txt | true
+sudo cp ITR-API/requirements.txt ITR-Docker/python3-internal/.
+sudo cp ITR-API/requirements.txt ITR-Docker/python3-external/.
 
 # change the configuration files
 sudo touch /data/ITR-data/instance/application.cfg
