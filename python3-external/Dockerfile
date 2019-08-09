@@ -14,7 +14,7 @@ RUN apt-get update && \
     chmod +x geckodriver && \
     export PATH=$PATH:/opt/geckodriver && \
     pip3 install --upgrade pip && \
-    apt-get install -y unixodbc unixodbc-dev openssl-dev libffi-dev 
+    apt-get install -y unixodbc unixodbc-dev libffi-dev 
 	
 ENV PATH="/opt/geckodriver:${PATH}"
 
