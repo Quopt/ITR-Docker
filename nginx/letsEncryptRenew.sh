@@ -1,3 +1,5 @@
+cd /etc/certbot
+date
 apk add curl openssl
 wget  -  https://get.acme.sh
 mv index.html acme.sh
