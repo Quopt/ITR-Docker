@@ -18,6 +18,8 @@
       proxy_set_header X-Forwarded-Proto $scheme;
       proxy_set_header X-Forwarded-Host  $host;
       proxy_set_header X-Forwarded-Port  $server_port;  
+      proxy_http_version 1.1;
+      proxy_set_header Connection "";      
     }
 
     location ~ ^(\/externalapi).* {
@@ -28,6 +30,8 @@
       proxy_set_header X-Forwarded-Proto $scheme;
       proxy_set_header X-Forwarded-Host  $host;
       proxy_set_header X-Forwarded-Port  $server_port;  
+      proxy_http_version 1.1;
+      proxy_set_header Connection "";      
     }
 
     location ~ ^(?!\/api|\/externalapi).* {
