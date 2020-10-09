@@ -36,6 +36,8 @@
 
     location ~ ^(?!\/api|\/externalapi).* {
       try_files $uri $uri_lowercase /default.htm =404;
+      expires 15m;
+      add_header Cache-Control "public, no-transform";      
     }
   }
 
