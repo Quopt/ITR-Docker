@@ -1,6 +1,6 @@
 FROM postgres:10-alpine
 
-RUN apk update && apk add zip libaio libaio-dev postgresql python3 gcc g++ python3-dev unixodbc unixodbc-dev git libffi-dev openssl-dev
+RUN apk update && apk add py3-pip zip libaio libaio-dev postgresql python3 gcc g++ python3-dev unixodbc unixodbc-dev git libffi-dev openssl-dev
 
 WORKDIR /data
 
