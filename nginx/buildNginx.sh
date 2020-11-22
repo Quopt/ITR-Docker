@@ -21,3 +21,10 @@ done
 echo } >> nginx.conf
 cp nginx.conf /etc/nginx/nginx.conf
 nginx -s reload
+
+export temp=s/'$WWW'/$WWW/g
+export temp=$(echo `expr "'$temp'"`)
+export temp=$(echo sed $temp nginx.conf.template.letsencrypt.org)
+echo $temp > temp.sh
+chmod +x temp.sh
+./temp.sh > nginx.conf.template.letsencrypt
