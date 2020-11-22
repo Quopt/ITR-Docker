@@ -21,6 +21,7 @@ RUN chmod +x letsEncrypt.sh
 RUN chmod +x buildNginx.sh
 RUN chmod +x letsEncryptRenew.sh
 COPY nginx.conf.template.letsencrypt nginx.conf.template.letsencrypt
+COPY nginx.conf.template.letsencrypt.org nginx.conf.template.letsencrypt.org
 
 RUN echo "0    2       *       *       *      sh -c /etc/certbot/letsEncryptRenew.sh > /etc/nginx/ssl/letsEncryptRenew.log" >> /etc/crontabs/root
   
