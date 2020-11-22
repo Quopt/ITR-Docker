@@ -112,7 +112,7 @@ sudo chmod 666 /data/ITR-Docker/nginx/nginx.conf.template.letsencrypt
 envsubst < /data/ITR-API/instance/application.cfg.template > /data/ITR-data/instance/application.cfg
 sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.local > /data/ITR-Docker/nginx/nginx.conf
 sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.siteonly > /data/ITR-Docker/nginx/nginx.conf.template.letsencrypt
-cp /data/ITR-Docker/nginx/nginx.conf.template.siteonly /data/ITR-Docker/nginx/nginx.conf.template.letsencrypt.org || true
+sudo cp /data/ITR-Docker/nginx/nginx.conf.template.siteonly /data/ITR-Docker/nginx/nginx.conf.template.letsencrypt.org || true
 
 if [ "$4" == "SSH" -o "$4" == "SSHPRIVATE" ]; then
  sed 's/$WWW/'$WWW'/g' /data/ITR-Docker/nginx/nginx.conf.template.public > /data/ITR-Docker/nginx/nginx.conf
