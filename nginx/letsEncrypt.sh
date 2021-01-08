@@ -12,22 +12,29 @@ chmod +x acme.sh
 ./acme.sh
 cd ~/.acme.sh
 
+# save config and prepare 
 cp /etc/nginx/nginx.conf /etc/certbot/nginx.conf
-if [ "$1" == "FIRSTSTART" ]
+if [ -e /etc/certbot/nginx.conf.template.letsencrypt.bkp ]
 then
- cp /etc/certbot/nginx.conf.template.letsencrypt /etc/nginx/nginx.conf
+ echo "backup already exists" 
+ rm /etc/certbot/nginx.conf.template.letsencrypt
+else
+ echo "backup created" 
+ cp /etc/certbot/nginx.conf.template.letsencrypt /etc/certbot/nginx.conf.template.letsencrypt.bkp
 fi 
 
-/usr/sbin/nginx
-echo $1
-
+# get the certificates
 for value in $WWW
 do
  echo $value
- ./acme.sh --issue --nginx -d $value --key-file /etc/nginx/ssl/$value.key --fullchain-file /etc/nginx/ssl/$value.crt  --reloadcmd  "/usr/sbin/nginx"
+ sed 's/$WWW/'$value'/g' /etc/certbot/nginx.conf.template.letsencrypt.bkp > /etc/certbot/nginx.conf.template.letsencrypt.$value
+ cp /etc/certbot/nginx.conf.template.letsencrypt.$value /etc/nginx/nginx.conf
+ cat /etc/nginx/nginx.conf
+ nginx -s reload
+ ./acme.sh --issue --nginx -d $value --key-file /etc/nginx/ssl/$value.key --fullchain-file /etc/nginx/ssl/$value.crt
  cp -r /root/.acme.sh/$value/* /etc/nginx/ssl/. | true
 done
-if [ "$1" == "FIRSTSTART" ]
-then
- cp /etc/certbot/nginx.conf /etc/nginx/nginx.conf
-fi 
+
+# restore config
+cp /etc/certbot/nginx.conf /etc/nginx/nginx.conf
+nginx -s reload
