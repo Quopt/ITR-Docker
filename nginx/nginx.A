@@ -31,7 +31,11 @@ http {
     sendfile        on;
     #tcp_nopush     on;
     keepalive_timeout  65;
-    #gzip  on;
+    gzip on;
+    gunzip on;
+    gzip_min_length 100;
+    gzip_proxied    no-cache no-store private expired auth;
+    gzip_types text/plain text/html text/css application/javascript application/json font/woff2;
 
    upstream backend-itr-api {
         server itr-api:80;
